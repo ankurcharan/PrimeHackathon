@@ -22,23 +22,84 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Hard-Coded Strings
 const googleUrl = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
 const users = 'users';
+const techStack = "techStack";
 
+
+// ROUTES
 // authentication
 app.post('/login', googleLogin);
-
+app.put('/onBoard', isAuthenticated, onBoard);
+// techStack
+app.post('/user/techstack', isAuthenticated, addTechStack);
 
 // database constant
 const usersCollection = db.collection(users);
 
-
-app.post('/login', googleLogin);
-app.put('/onBoard', isAuthenticated, onBoard);
 
 app.use('/', function (req, res) {
 
 	res.send("use another route");
 
 })
+
+
+
+
+
+
+
+
+// to add techStack of the user
+// params
+// jwt token in headers
+// 
+// raw json in body
+//
+// {
+// 	"stack": [
+		
+// 		{
+// 			"techName": "Java",
+// 			"level": "BeGinNer"
+// 		},
+// 		{
+// 			"techName": "Java",
+// 			"level": "BeGinNer"
+// 		}
+			
+// 	]
+// }
+function addTechStack(req, res) {
+
+	let sub = req.body.sub;
+	let techStack = usersCollection.doc(sub).collection(techStack);
+
+	let stacks = req.body.stack;
+	let promises = [];
+
+	for(let stack in stacks) {
+
+		stacks[stack]["level"] = stacks[stack]["level"].toLowerCase();
+
+		let techName = stacks[stack]["techName"].toLowerCase();
+		let x = techStack.doc(techName).set(stacks[stack]);
+
+		promises.push(x);
+	}
+
+
+	Promise.all(promises)
+	.then(() => {
+		res.status(200).json({
+			success: true,
+			message: "techStack added succesfully"
+		})
+	})
+	.catch((err) => {
+		res.send(err);
+	})
+}
+
 
 
 function googleLogin(req, response) {
