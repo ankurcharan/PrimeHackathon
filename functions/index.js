@@ -48,6 +48,8 @@ app.put('/onBoard', isAuthenticated, onBoard);
 // techStack
 app.post('/user/techstack', isAuthenticated, addTechStack);
 app.get('/user/techstack',isAuthenticated,getTechStack);
+
+app.get('/techstack/users', getTechStackUsers);
 //projectStack
 app.post('/user/projects', isAuthenticated, addProjects);
 // blogs
@@ -60,6 +62,90 @@ app.use('/', function (req, res) {
 	res.send("use another route");
 
 })
+
+
+
+
+
+// to get all the users with same technology experience
+// 
+// GET
+// send 
+// tech = techName in params
+function getTechStackUsers(req, res) {
+
+	let tech = req.query.tech;
+
+
+	if(tech === undefined) {
+
+		return res.status(400).json({
+			success: false,
+			message: "Usage: [GET] tech=technologyName"
+		})
+	}
+
+	let promises = [];
+	let techUsers = [];
+
+	usersCollection.get()
+	.then((docs) => {
+
+		docs.forEach((doc) => {
+			let x = usersCollection.doc(doc.id).collection(techStacks).get()
+			.then((technologies) => {
+
+				if(technologies !== undefined && technologies !== null) {
+					
+					technologies.forEach((techno) => {
+			
+						if(techno.id == tech) {
+
+							techUsers.push(doc.data());
+						}
+					})
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({
+					success: false,
+					message: "error fetching tech",
+					err: err
+				})
+			})
+
+			promises.push(x);
+		
+		})
+
+		Promise.all(promises)
+		.then(() => {
+			return res.status(200).json({
+				success: true,
+				data: {
+					techUsers
+				}
+			})
+		})
+		.catch((err) => {
+			return res.status(500).json({
+				success: false,
+				message: "promises not fulfilled"
+			})
+		})
+	})
+	.catch((err) => {
+	
+		return res.status(500).json({
+			success: false,
+			message: "error fetching users",
+			err: err
+		})
+	})
+
+	
+}
+
 
 
 

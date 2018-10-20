@@ -1,0 +1,33 @@
+[debug] [2018-10-20T19:54:14.176Z] ----------------------------------------------------------------------
+[debug] [2018-10-20T19:54:14.178Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-10-20T19:54:14.178Z] CLI Version:   5.0.1
+[debug] [2018-10-20T19:54:14.178Z] Platform:      linux
+[debug] [2018-10-20T19:54:14.178Z] Node Version:  v8.12.0
+[debug] [2018-10-20T19:54:14.178Z] Time:          Sun Oct 21 2018 01:24:14 GMT+0530 (IST)
+[debug] [2018-10-20T19:54:14.178Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-20T19:54:14.184Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-20T19:54:14.185Z] > authorizing via signed-in user
+[debug] [2018-10-20T19:54:14.185Z] [iam] checking project primehackathon for permissions ["firebase.projects.get"]
+[debug] [2018-10-20T19:54:14.186Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon:testIamPermissions  
+
+[debug] [2018-10-20T19:54:19.748Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T19:54:19.748Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon  
+ 
+[debug] [2018-10-20T19:54:22.375Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/media/ankurcharan/EA84A99384A96335/Intel Inside/Web Dev/Techspardha/PrimeHackathon'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-20T19:54:22.689Z] Fetching environment
+[debug] [2018-10-20T19:54:22.690Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/933711943569:getServerAppConfig  
+ 
+[debug] [2018-10-20T19:54:22.691Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/933711943569/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-20T19:54:23.920Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T19:54:23.921Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-20T19:54:23.946Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2018-10-20T19:54:24.979Z] Parsing function triggers
+[info] ✔  functions: api: http://localhost:5001/primehackathon/us-central1/api
