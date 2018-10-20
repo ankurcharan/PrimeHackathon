@@ -46,6 +46,7 @@ app.get('/user/techstack',isAuthenticated,getTechStack);
 app.post('/user/projects', isAuthenticated, addProjects);
 // blogs
 app.post('/user/blogs', isAuthenticated, addBlog);
+app.get('/user/blogs', isAuthenticated, getBlogs);
 
 
 app.use('/', function (req, res) {
@@ -53,6 +54,57 @@ app.use('/', function (req, res) {
 	res.send("use another route");
 
 })
+
+
+
+// get all the blogs of a user
+// for him to see all his blogs
+
+// send 
+// token in headers
+// get all blogs of that user
+// if use has no blogs 
+// returns empty array
+function getBlogs(req, res) {
+
+	let sub = req.body.sub;
+
+	usersCollection.doc(sub).collection(blogs).get()
+	.then((snapshot) => {
+
+		let data = {
+			blogs: []
+		}
+
+		snapshot.forEach((doc) => {
+
+			// console.log(doc.id, '>=', doc.data());
+			
+			let blog = doc.data();
+
+			data["blogs"].push(blog);
+		})
+
+		return res.status(200).json({
+
+			success: true,
+			data: data
+		})
+	})
+	.catch((err) => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not fetch user blogs",
+			err: err
+		})
+
+	})
+
+
+
+}
+
 
 
 // to add blogs for a user
