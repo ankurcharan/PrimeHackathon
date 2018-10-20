@@ -49,7 +49,7 @@ app.put('/onBoard', isAuthenticated, onBoard);
 app.post('/user/techstack', isAuthenticated, addTechStack);
 app.get('/user/techstack',isAuthenticated,getTechStack);
 
-app.get('/techstack/users', getTechStackUsers);
+app.get('/getTechUsers', getTechStackUsers);
 //projectStack
 app.post('/user/projects', isAuthenticated, addProjects);
 // blogs
@@ -283,27 +283,61 @@ function addBlog(req, res) {
 // 		}
 // 	]
 // }
-
-
 function addProjects(req, res) {
 
 	let sub = req.body.sub;
-
-	let projectStack = usersCollection.doc(sub).collection(projectsStack);
-
 	let projects = req.body.projects;
-
 	let promises = [];
 
 	for(let project in projects) {
-		// console.log(projects[project]);
+
+		// console.log(projects[project].projectTitle);
+		// console.log();
+		// console.log();
+		// console.log("------------");
+		// console.log("------------");
+
+		let references = projects[project].references;
+		let techStacks = projects[project].techStack;
+
+		delete projects[project].references;
+		delete projects[project].techStack;
 
 		let title = projects[project]["projectTitle"].toLowerCase();
+		// console.log(projects[project]);
+		let projectStack = usersCollection.doc(sub).collection(projectsStack);
 
-		let x = projectStack.doc(title).set(projects[project]);
-		// console.log();
+		let y = projectStack.doc(title).set(projects[project])
+		.then(() => {
 
-		promises.push(x);
+			// projectStack.doc(title).set(projects[project]);
+			for(let ref in references) {
+				
+				let x = projectStack.doc(title).collection("references").add(references[ref]);
+				console.log(references[ref]);
+
+				promises.push(x);
+			}
+
+			for(let tech in techStacks) {
+
+				console.log(techStacks[tech]);
+				let x = projectStack.doc(title).collection("technologies").add({
+					"tech": techStacks[tech]
+				});
+
+				promises.push(x);
+			}
+		})
+		.catch(() => {
+
+			return res.status(500).json({
+				success: false,
+				message: "error adding project"
+			})
+		})
+
+		promises.push(y);
 	}
 
 	Promise.all(promises)
