@@ -24,6 +24,11 @@ const googleUrl = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
 const users = 'users';
 const techStacks = "techStack";
 const projectsStack = "projectStack";
+const blogs = "blogs";
+
+
+// database constant
+const usersCollection = db.collection(users);
 
 
 // ROUTES
@@ -39,12 +44,9 @@ app.post('/user/techstack', isAuthenticated, addTechStack);
 app.get('/user/techstack',isAuthenticated,getTechStack);
 //projectStack
 app.post('/user/projects', isAuthenticated, addProjects);
-
-
-
-
-// database constant
-const usersCollection = db.collection(users);
+// blogs
+app.post('/user/blogs', isAuthenticated, addBlog);
+app.get('/user/blogs', isAuthenticated, getBlogs);
 
 
 app.use('/', function (req, res) {
@@ -52,6 +54,96 @@ app.use('/', function (req, res) {
 	res.send("use another route");
 
 })
+
+
+
+// get all the blogs of a user
+// for him to see all his blogs
+
+// send 
+// token in headers
+// get all blogs of that user
+// if use has no blogs 
+// returns empty array
+function getBlogs(req, res) {
+
+	let sub = req.body.sub;
+
+	usersCollection.doc(sub).collection(blogs).get()
+	.then((snapshot) => {
+
+		let data = {
+			blogs: []
+		}
+
+		snapshot.forEach((doc) => {
+
+			// console.log(doc.id, '>=', doc.data());
+			
+			let blog = doc.data();
+
+			data["blogs"].push(blog);
+		})
+
+		return res.status(200).json({
+
+			success: true,
+			data: data
+		})
+	})
+	.catch((err) => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not fetch user blogs",
+			err: err
+		})
+
+	})
+
+
+
+}
+
+
+
+// to add blogs for a user
+//
+// token in header
+//
+// raw json body
+// {
+// 	"blog": {
+		
+// 		"title": "My Blog 3",
+// 		"text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+// 	}
+// }
+function addBlog(req, res) {
+
+	let sub = req.body.sub;
+
+	console.log(req.body);
+
+	let myBlog = req.body.blog;
+
+	usersCollection.doc(sub).collection(blogs).add(myBlog)
+	.then(() => {
+
+		return res.status(200).json({
+			success: true,
+			message: "blog added successfully"
+		})
+	})
+	.catch((err) => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not add blog. Try Again!",
+			err: err
+		})
+	})
+}
 
 
 
@@ -127,7 +219,7 @@ function addProjects(req, res) {
 
 		return res.status(200).json({
 			success: true,
-			message: "projects added succesfully"
+			message: "projects added successfully"
 		})
 	})
 	.catch((err) => {
@@ -187,7 +279,7 @@ function addTechStack(req, res) {
 	.then(() => {
 		return res.status(200).json({
 			success: true,
-			message: "techStack added succesfully"
+			message: "techStack added successfully"
 		})
 	})
 	.catch((err) => {
