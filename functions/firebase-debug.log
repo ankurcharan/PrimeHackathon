@@ -1,28 +1,31 @@
-[debug] [2018-10-20T12:25:34.486Z] ----------------------------------------------------------------------
-[debug] [2018-10-20T12:25:34.499Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve --only functions
-[debug] [2018-10-20T12:25:34.501Z] CLI Version:   5.1.1
-[debug] [2018-10-20T12:25:34.501Z] Platform:      win32
-[debug] [2018-10-20T12:25:34.501Z] Node Version:  v8.11.4
-[debug] [2018-10-20T12:25:34.504Z] Time:          Sat Oct 20 2018 17:55:34 GMT+0530 (India Standard Time)
-[debug] [2018-10-20T12:25:34.505Z] ----------------------------------------------------------------------
+[debug] [2018-10-20T14:12:10.775Z] ----------------------------------------------------------------------
+[debug] [2018-10-20T14:12:10.791Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve --only functions
+[debug] [2018-10-20T14:12:10.793Z] CLI Version:   5.1.1
+[debug] [2018-10-20T14:12:10.794Z] Platform:      win32
+[debug] [2018-10-20T14:12:10.794Z] Node Version:  v8.11.4
+[debug] [2018-10-20T14:12:10.796Z] Time:          Sat Oct 20 2018 19:42:10 GMT+0530 (India Standard Time)
+[debug] [2018-10-20T14:12:10.796Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-10-20T12:25:34.843Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-10-20T12:25:34.847Z] > authorizing via signed-in user
-[debug] [2018-10-20T12:25:34.847Z] [iam] checking project primehackathon for permissions ["firebase.projects.get"]
-[debug] [2018-10-20T12:25:34.856Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon:testIamPermissions  
+[debug] [2018-10-20T14:12:10.933Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-20T14:12:10.936Z] > authorizing via signed-in user
+[debug] [2018-10-20T14:12:10.938Z] [iam] checking project primehackathon for permissions ["firebase.projects.get"]
+[debug] [2018-10-20T14:12:10.962Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-10-20T14:12:10.965Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-10-20T14:12:12.014Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:12:12.147Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon:testIamPermissions  
 
-[debug] [2018-10-20T12:25:37.606Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-20T12:25:37.611Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon  
+[debug] [2018-10-20T14:12:17.520Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:12:17.526Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon  
  
-[debug] [2018-10-20T12:25:40.732Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:12:19.807Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from 'C:\Users\user\Documents\WebD\Hackathon\PrimeHackathon'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2018-10-20T12:26:06.432Z] Fetching environment
-[debug] [2018-10-20T12:26:06.444Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/933711943569:getServerAppConfig  
+[debug] [2018-10-20T14:12:33.663Z] Fetching environment
+[debug] [2018-10-20T14:12:33.677Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/933711943569:getServerAppConfig  
  
-[debug] [2018-10-20T12:26:07.593Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-20T12:26:07.594Z] Starting @google-cloud/functions-emulator
-[debug] [2018-10-20T12:26:27.447Z] Parsing function triggers
-[info] +  functions: api: http://localhost:5000/primehackathon/us-central1/api
+[debug] [2018-10-20T14:12:34.686Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:12:34.687Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-20T14:12:52.773Z] Parsing function triggers

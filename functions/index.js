@@ -36,6 +36,7 @@ app.post('/login', googleLogin);
 app.put('/onBoard', isAuthenticated, onBoard);
 // techStack
 app.post('/user/techstack', isAuthenticated, addTechStack);
+//projectStack
 app.post('/user/projects', isAuthenticated, addProjects);
 
 
@@ -108,9 +109,6 @@ function addProjects(req, res) {
 	let promises = [];
 
 	for(let project in projects) {
-
-		console.log("----------");
-		console.log("----------");
 		// console.log(projects[project]);
 
 		let title = projects[project]["projectTitle"].toLowerCase();
@@ -119,8 +117,6 @@ function addProjects(req, res) {
 		// console.log();
 
 		promises.push(x);
-		console.log("----------");
-		console.log("----------");
 	}
 
 	Promise.all(promises)
@@ -178,7 +174,7 @@ function addTechStack(req, res) {
 		stacks[stack]["level"] = stacks[stack]["level"].toLowerCase();
 
 		let techName = stacks[stack]["techName"].toLowerCase();
-		let x = techStack.doc(techName).set(stacks[stack]);
+		let x = techStack.doc(techName).set(stacks[stack],{ merge: true });
 
 		promises.push(x);
 	}
