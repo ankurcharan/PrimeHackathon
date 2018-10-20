@@ -27,6 +27,10 @@ const projectsStack = "projectStack";
 
 
 // ROUTES
+
+//cors
+app.use(cors({origin: true}));
+
 // authentication
 app.post('/login', googleLogin);
 app.put('/onBoard', isAuthenticated, onBoard);
@@ -182,13 +186,17 @@ function addTechStack(req, res) {
 
 	Promise.all(promises)
 	.then(() => {
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			message: "techStack added succesfully"
 		})
 	})
 	.catch((err) => {
-		res.send(err);
+		return res.status(500).json({
+			success: false,
+			message: "could not add techStack",
+			err: err
+		})
 	})
 }
 
@@ -377,6 +385,14 @@ function onBoard(req, res) {
 				message: "not allowed, already onBoard"
 			})
 		}
+	})
+	.catch((err) => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not fetch user",
+			err: err
+		})
 	})
 }
 
