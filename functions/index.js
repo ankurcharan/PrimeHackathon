@@ -35,6 +35,12 @@ const usersCollection = db.collection(users);
 
 //cors
 app.use(cors({origin: true}));
+// origin
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // authentication
 app.post('/login', googleLogin);
