@@ -29,3 +29,4 @@
 [debug] [2018-10-20T14:12:34.686Z] <<< HTTP RESPONSE 200
 [debug] [2018-10-20T14:12:34.687Z] Starting @google-cloud/functions-emulator
 [debug] [2018-10-20T14:12:52.773Z] Parsing function triggers
+[info] +  functions: api: http://localhost:5000/primehackathon/us-central1/api
