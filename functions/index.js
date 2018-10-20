@@ -23,14 +23,21 @@ app.use(bodyParser.urlencoded({extended:false}));
 const googleUrl = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
 const users = 'users';
 const techStack = "techStack";
+const projectsStack = "projectStack";
 
 
 // ROUTES
+
+//cors
+app.use(cors({origin: true}));
+
 // authentication
 app.post('/login', googleLogin);
 app.put('/onBoard', isAuthenticated, onBoard);
 // techStack
 app.post('/user/techstack', isAuthenticated, addTechStack);
+app.post('/user/projects', isAuthenticated, addProjects);
+
 
 // database constant
 const usersCollection = db.collection(users);
@@ -44,7 +51,96 @@ app.use('/', function (req, res) {
 
 
 
+// to add user projects
 
+// raw json in body
+//
+// {
+// 	"projects": [
+// 		{
+// 			"projectTitle": "Bridge",
+// 			"projectDescription": "A bridge between the retailer and the online commerce.",
+// 			"projectRepo": "https://github.com/ankurcharan/Bridge",
+// 			"references":[
+// 				{
+// 					"link": "www.udemy.com",
+// 					"remark": "free online courses"
+// 				},
+// 				{
+// 					"link": "www.youtube.com",
+// 					"remark": "best video platform"
+// 				}
+				
+// 			],
+// 			"status": "Completed",
+// 			"techStack": ["Firebase Functions", "NodeJS", "Javascript", "CSS"]
+// 		},
+// 		{
+// 			"projectTitle": "Stack-Shetra",
+// 			"projectDescription": "Internet discussion form for college students",
+// 			"projectRepo": "https://github.com/ankurcharan/HackPrime",
+// 			"references":[
+// 				{
+// 					"link": "www.udemy.com",
+// 					"remark": "free online courses"
+// 				},
+// 				{
+// 					"link": "www.youtube.com",
+// 					"remark": "best video platform"
+// 				}
+				
+// 			],
+// 			"status": "Ongoing",
+// 			"techStack": ["Firestore", "NodeJS", "JS", "HTML"]
+// 		}
+// 	]
+// }
+
+
+function addProjects(req, res) {
+
+	let sub = req.body.sub;
+
+	let projectStack = usersCollection.doc(sub).collection(projectsStack);
+
+	let projects = req.body.projects;
+
+	let promises = [];
+
+	for(let project in projects) {
+
+		console.log("----------");
+		console.log("----------");
+		// console.log(projects[project]);
+
+		let title = projects[project]["projectTitle"].toLowerCase();
+
+		let x = projectStack.doc(title).set(projects[project]);
+		// console.log();
+
+		promises.push(x);
+		console.log("----------");
+		console.log("----------");
+	}
+
+	Promise.all(promises)
+	.then(() => {
+
+		return res.status(200).json({
+			success: true,
+			message: "projects added succesfully"
+		})
+	})
+	.catch((err) => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not add projects",
+			err: err
+		})
+	})
+	
+}
 
 
 
@@ -90,13 +186,17 @@ function addTechStack(req, res) {
 
 	Promise.all(promises)
 	.then(() => {
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			message: "techStack added succesfully"
 		})
 	})
 	.catch((err) => {
-		res.send(err);
+		return res.status(500).json({
+			success: false,
+			message: "could not add techStack",
+			err: err
+		})
 	})
 }
 
@@ -285,6 +385,14 @@ function onBoard(req, res) {
 				message: "not allowed, already onBoard"
 			})
 		}
+	})
+	.catch((err) => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not fetch user",
+			err: err
+		})
 	})
 }
 
