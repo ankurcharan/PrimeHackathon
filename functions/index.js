@@ -99,12 +99,14 @@ function getTechStackUsers(req, res) {
 					
 					technologies.forEach((techno) => {
 			
-						if(techno.id == tech) {
+						if(techno.id === tech) {
 
 							techUsers.push(doc.data());
 						}
 					})
 				}
+
+				return;
 			})
 			.catch((err) => {
 				return res.status(500).json({
@@ -118,7 +120,7 @@ function getTechStackUsers(req, res) {
 		
 		})
 
-		Promise.all(promises)
+		return Promise.all(promises)
 		.then(() => {
 			return res.status(200).json({
 				success: true,
@@ -130,7 +132,8 @@ function getTechStackUsers(req, res) {
 		.catch((err) => {
 			return res.status(500).json({
 				success: false,
-				message: "promises not fulfilled"
+				message: "promises not fulfilled",
+				err: err 
 			})
 		})
 	})
@@ -328,6 +331,8 @@ function addProjects(req, res) {
 
 				promises.push(x);
 			}
+
+			return;
 		})
 		.catch(() => {
 
