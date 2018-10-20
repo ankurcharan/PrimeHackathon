@@ -36,8 +36,11 @@ app.post('/login', googleLogin);
 app.put('/onBoard', isAuthenticated, onBoard);
 // techStack
 app.post('/user/techstack', isAuthenticated, addTechStack);
+app.get('/user/techstack',isAuthenticated,getTechStack);
 //projectStack
 app.post('/user/projects', isAuthenticated, addProjects);
+
+
 
 
 // database constant
@@ -196,6 +199,78 @@ function addTechStack(req, res) {
 	})
 }
 
+
+//getTechStack
+
+// Response
+
+// {
+//     "success": true,
+//     "data": {
+//         "techStack": [
+//             {
+//                 "techName": "ImageProcessing",
+//                 "level": "intermediate"
+//             },
+//             {
+//                 "techName": "Java",
+//                 "level": "beginner"
+//             },
+//             {
+//                 "techName": "Python",
+//                 "level": "intermediate"
+//             }
+//         ]
+//     }
+// }
+function getTechStack(req,res){
+  
+	let sub = req.body.sub;
+	let techStack = usersCollection.doc(sub).collection(techStacks);
+
+    let promises = [];
+    let techStackData = [];
+
+    let x = techStack.get()
+    .then(function(querySnapshot) {
+
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            techStackData.push(doc.data());
+        });
+        return res.status(200).json({
+            success:true,
+            data: {
+                techStack: techStackData
+            }
+        })
+    })
+    .catch((err) => {
+        return res.status(500).json({
+            success:false,
+            message: "Could not get techstack",
+            err:err
+        })
+
+    })
+
+    // promises.push(x);
+
+
+    // Promise.all(promises)
+	// .then(() => {
+	// 	return res.status(200).json(data
+	// 	)
+	// })
+	// .catch((err) => {
+	// 	return res.status(500).json({
+	// 		success: false,
+	// 		message: "could not add techStack",
+	// 		err: err
+	// 	})
+	// })
+}
 
 
 function googleLogin(req, response) {
