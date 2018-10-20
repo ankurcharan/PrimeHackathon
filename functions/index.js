@@ -198,6 +198,31 @@ function addTechStack(req, res) {
 		})
 	})
 }
+
+
+//getTechStack
+
+// Response
+
+// {
+//     "success": true,
+//     "data": {
+//         "techStack": [
+//             {
+//                 "techName": "ImageProcessing",
+//                 "level": "intermediate"
+//             },
+//             {
+//                 "techName": "Java",
+//                 "level": "beginner"
+//             },
+//             {
+//                 "techName": "Python",
+//                 "level": "intermediate"
+//             }
+//         ]
+//     }
+// }
 function getTechStack(req,res){
   
 	let sub = req.body.sub;
