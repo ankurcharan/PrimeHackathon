@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Hard-Coded Strings
 const googleUrl = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
 const users = 'users';
-const techStack = "techStack";
+const techStacks = "techStack";
 const projectsStack = "projectStack";
 
 
@@ -168,7 +168,7 @@ function addProjects(req, res) {
 function addTechStack(req, res) {
 
 	let sub = req.body.sub;
-	let techStack = usersCollection.doc(sub).collection(techStack);
+	let techStack = usersCollection.doc(sub).collection(techStacks);
 
 	let stacks = req.body.stack;
 	let promises = [];
