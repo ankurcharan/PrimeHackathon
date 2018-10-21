@@ -15,3 +15,6 @@
 .display_content {
     display: block;
 }
+.addBut{
+    float: right;
+}
