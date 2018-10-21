@@ -46,23 +46,40 @@
 			</div>
 		</header>
 		
-		<button id="getBlogs" class="btn btn-primary">get Blogs</button>
-		<button id="getTechStack" class="btn btn-primary">get TechStack</button>
-		<button id="getProjects" class="btn btn-primary">get Projects</button>
+		<button id="getBlogs" class="btn btn-primary getBut">get Blogs</button>
+		<button id="getTechStack" class="btn btn-primary getBut">get TechStack</button>
+		<button id="getProjects" class="btn btn-primary getBut">get Projects</button>
+
+		
+		
+		<button id="addBlog" class="btn btn-primary addBut">add Blogs</button>
+		<button id="addTech" class="btn btn-primary addBut">add TechStack</button>
+		<button id="addProject" class="btn btn-primary addBut">add Projects</button>
+
 
 		<br>
 		<br>
+
 
 		<div id="myBlogs" class="col-lg-10 mx-auto" >
-			blogs
+			<!-- blogs -->
 		</div>
 		<div id="techStack" class="col-lg-10 mx-auto" >
 			
-			tech
+			<!-- tech -->
 		</div>
 		<div id="myProjects" class="col-lg-10 mx-auto" >
-			pro
+			<!-- pro -->
 			
+		</div>
+
+		<div id="blog">
+			
+			<input id="blogT" type="text" placeholder="Title" name="title">
+			<br>
+			<input id="blogText" type="text" placeholder="write here" width="200px" height="150px" name="text">		
+			<br>
+			<button id="blogAdd" onclick="addUserBlog()">Submit</button>
 		</div>
 
 

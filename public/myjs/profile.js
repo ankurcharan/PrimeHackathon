@@ -5,6 +5,8 @@ let token = JSON.parse(localStorage.getItem('token'));
 // var decoded = jwt_decode(token);
 // console.log(decoded);
 
+$("#blog").hide();
+
 
 function signOut() {
     // onSignIn();
@@ -104,9 +106,91 @@ $("#getBlogs").click(function () {
 
 $("#getProjects").click(function () {
 
-    console.log("techstack");
     $("#myProjects").show();
     $("#myBlogs").hide();
     $("#techStack").hide();
     
+
+    $.ajax({
+        url: "https://us-central1-primehackathon.cloudfunctions.net/api/user/projects",
+        type: "GET",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', token);
+        },
+        success: function(result,status){
+            if(status==="success") {
+                console.log(result);
+                let str = "<ul> ";
+                let data = result["data"]["projects"];
+                // // console.log(data);
+                for(let project in data)
+                {   
+                    str+="<li> Project"+(parseInt(project)+1)+": <ul>";
+                    // console.log(data[stack]);
+                    str+= "<li> Title: "+data[project]["projectTitle"]+" </li>";
+                    str+= "<li> Description: "+data[project]["projectDescription"]+" </li>";
+                    str+= "<li> Git: "+data[project]["projectRepo"]+" </li>";
+                    str+= "<li> Status: "+data[project]["status"]+" </li>";
+                    str+="</ul></li>";
+                }
+                str+="</ul>";
+                // console.log(str);
+                $("#myProjects").html(str);
+
+            }
+        },
+        error: function(){
+            console.log("error");
+        }
+    })
 })
+
+$('#addBlog').click(function() {
+
+    $('#blog').show();
+    
+    
+})
+
+function addUserBlog() {
+    let title = $('#blogT').val().trim();
+    let text = $('#blogText').val().trim();
+
+    if(title.length > 0 && text.length > 0) {
+
+        $.ajax({
+            url: "https://us-central1-primehackathon.cloudfunctions.net/api/user/blogs",
+            type:"POST",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', token);
+                },
+            headers: {
+                "Content-Type": 'application/json',
+                "charset": "utf-8"
+            },
+            data: {
+                "blog": {
+                    "title": title,
+                    "text": text
+                }
+            },
+            success: function(result,status){
+                if(status==="success") {
+                    console.log(result);
+                    $('#blogT').val("");
+                    $('#blogText').val("");
+                }
+            },
+            error: function(){
+                console.log("error");
+                $('#blogT').val("");
+                $('#blogText').val("");
+            }
+
+        })
+
+    }
+    else {
+        alert("write text");
+    }
+}

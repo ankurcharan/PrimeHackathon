@@ -7,9 +7,6 @@
     display: inline-block;
     color: white;
 }
-ul{
-    font-weight:400;
-}
 
 .hide {
     display: none;
@@ -17,4 +14,7 @@ ul{
 
 .display_content {
     display: block;
+}
+.addBut{
+    float: right;
 }
