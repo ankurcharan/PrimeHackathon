@@ -31,7 +31,7 @@ app.post('/techstack', addTechStack);
 app.get('/techstack', getTechStack);
 // blogs
 app.post('/blogs', addBlog);
-app.post('/blogs', getBlogs);
+app.get('/blogs', getBlogs);
 // projects
 app.post('/projects', addProjects);
 
