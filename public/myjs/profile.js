@@ -5,6 +5,8 @@ let token = JSON.parse(localStorage.getItem('token'));
 // var decoded = jwt_decode(token);
 // console.log(decoded);
 
+$("#blog").hide();
+
 
 function signOut() {
     // onSignIn();
@@ -142,3 +144,53 @@ $("#getProjects").click(function () {
         }
     })
 })
+
+$('#addBlog').click(function() {
+
+    $('#blog').show();
+    
+    
+})
+
+function addUserBlog() {
+    let title = $('#blogT').val().trim();
+    let text = $('#blogText').val().trim();
+
+    if(title.length > 0 && text.length > 0) {
+
+        $.ajax({
+            url: "https://us-central1-primehackathon.cloudfunctions.net/api/user/blogs",
+            type:"POST",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', token);
+                },
+            headers: {
+                "Content-Type": 'application/json',
+                "charset": "utf-8"
+            },
+            data: {
+                "blog": {
+                    "title": title,
+                    "text": text
+                }
+            },
+            success: function(result,status){
+                if(status==="success") {
+                    console.log(result);
+                    $('#blogT').val("");
+                    $('#blogText').val("");
+                }
+            },
+            error: function(){
+                console.log("error");
+                $('#blogT').val("");
+                $('#blogText').val("");
+            }
+
+        })
+
+    }
+    else {
+        alert("write text");
+    }
+}
