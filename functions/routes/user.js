@@ -34,8 +34,69 @@ app.post('/blogs', addBlog);
 app.get('/blogs', getBlogs);
 // projects
 app.post('/projects', addProjects);
+app.get('/projects', getProjects);
 
 
+
+
+
+
+
+// to get user projects
+//
+// send token in headers
+// recieve json of projects
+
+// as in the form
+// {
+//     "success": true,
+//     "data": {
+//         "projects": [
+//             {
+//                 "projectDescription": "A bridge between the retailer and the online commerce.",
+//                 "projectTitle": "Bridge",
+//                 "status": "Completed",
+//                 "projectRepo": "https://github.com/ankurcharan/Bridge"
+//             },
+//             {
+//                 "projectRepo": "https://github.com/ankurcharan/Bridge",
+//                 "projectDescription": "this is a shitty project.",
+//                 "projectTitle": "shit",
+//                 "status": "Completed"
+//             }        
+// 		]
+//     }
+// }
+function getProjects(req, res) {
+
+	let sub = req.body.sub;
+
+	let data = {
+		projects: []
+	}
+
+	usersCollection.doc(sub).collection("projectStack").get()
+	.then((projects) => {
+
+		projects.forEach((project) => {
+
+			data["projects"].push(project.data());
+		})
+
+		return res.status(200).json({
+			success: true,
+			data: data
+		})
+	})
+	.catch(() => {
+
+		return res.status(500).json({
+			success: false,
+			message: "could not fetch projects",
+		
+		})
+	})
+}
 
 
 // to add user projects
