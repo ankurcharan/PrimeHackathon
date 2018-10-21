@@ -109,4 +109,32 @@ $("#getProjects").click(function () {
     $("#myBlogs").hide();
     $("#techStack").hide();
     
+
+    $.ajax({
+        url: "https://us-central1-primehackathon.cloudfunctions.net/api/user/projects",
+        type: "GET",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', token);
+        },
+        success: function(result,status){
+            if(status==="success") {
+                console.log(result);
+                // let str = "<ul> ";
+                // let data = result["data"]["techStack"];
+                // // console.log(data);
+                // for(let stack in data)
+                // {   
+                //     // console.log(data[stack]);
+                //     str+= "<li> "+data[stack]["techName"]+" : "+data[stack]["level"]+" </li>";
+                // }
+                // str+="</ul>";
+                // console.log(str);
+                // $("#techStack").html(str);
+
+            }
+        },
+        error: function(){
+            console.log("error");
+        }
+    })
 })

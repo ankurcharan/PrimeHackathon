@@ -1,0 +1,13 @@
+[debug] [2018-10-21T01:37:01.543Z] ----------------------------------------------------------------------
+[debug] [2018-10-21T01:37:01.554Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-10-21T01:37:01.555Z] CLI Version:   5.1.1
+[debug] [2018-10-21T01:37:01.555Z] Platform:      win32
+[debug] [2018-10-21T01:37:01.555Z] Node Version:  v8.11.4
+[debug] [2018-10-21T01:37:01.556Z] Time:          Sun Oct 21 2018 07:07:01 GMT+0530 (India Standard Time)
+[debug] [2018-10-21T01:37:01.556Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-21T01:37:01.656Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-21T01:37:01.659Z] > authorizing via signed-in user
+[debug] [2018-10-21T01:37:01.659Z] [iam] checking project primehackathon for permissions ["firebase.projects.get"]
+[debug] [2018-10-21T01:37:01.667Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon:testIamPermissions  
+
