@@ -1,0 +1,8 @@
+button{
+    background: none;
+    color:red;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: inherit;
+    margin: auto 20px;
+}
