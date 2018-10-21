@@ -104,7 +104,6 @@ $("#getBlogs").click(function () {
 
 $("#getProjects").click(function () {
 
-    console.log("techstack");
     $("#myProjects").show();
     $("#myBlogs").hide();
     $("#techStack").hide();
@@ -119,17 +118,22 @@ $("#getProjects").click(function () {
         success: function(result,status){
             if(status==="success") {
                 console.log(result);
-                // let str = "<ul> ";
-                // let data = result["data"]["techStack"];
+                let str = "<ul> ";
+                let data = result["data"]["projects"];
                 // // console.log(data);
-                // for(let stack in data)
-                // {   
-                //     // console.log(data[stack]);
-                //     str+= "<li> "+data[stack]["techName"]+" : "+data[stack]["level"]+" </li>";
-                // }
-                // str+="</ul>";
+                for(let project in data)
+                {   
+                    str+="<li> Project"+(parseInt(project)+1)+": <ul>";
+                    // console.log(data[stack]);
+                    str+= "<li> Title: "+data[project]["projectTitle"]+" </li>";
+                    str+= "<li> Description: "+data[project]["projectDescription"]+" </li>";
+                    str+= "<li> Git: "+data[project]["projectRepo"]+" </li>";
+                    str+= "<li> Status: "+data[project]["status"]+" </li>";
+                    str+="</ul></li>";
+                }
+                str+="</ul>";
                 // console.log(str);
-                // $("#techStack").html(str);
+                $("#myProjects").html(str);
 
             }
         },

@@ -11,3 +11,23 @@
 [debug] [2018-10-21T01:37:01.659Z] [iam] checking project primehackathon for permissions ["firebase.projects.get"]
 [debug] [2018-10-21T01:37:01.667Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon:testIamPermissions  
 
+[debug] [2018-10-21T01:37:04.303Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-21T01:37:04.309Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/primehackathon  
+ 
+[debug] [2018-10-21T01:37:06.483Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\user\Documents\WebD\Hackathon\New folder\PrimeHackathon'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-21T01:37:17.352Z] Fetching environment
+[debug] [2018-10-21T01:37:17.364Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/933711943569:getServerAppConfig  
+ 
+[debug] [2018-10-21T01:37:17.366Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/933711943569/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-21T01:37:18.577Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-21T01:37:18.578Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-21T01:37:18.716Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[debug] [2018-10-21T01:37:29.120Z] Parsing function triggers
+[info] +  functions: api: http://localhost:5001/primehackathon/us-central1/api
